@@ -2,7 +2,7 @@ import express from "express";
 import "express-async-errors";
 
 import { currentUserRouter } from "./routes/current-user";
-import { signinUserRouter } from "./routes/signin";
+import { signinRouter } from "./routes/signin";
 import { signoutUserRouter } from "./routes/signout";
 import { signupUserRouter } from "./routes/signup";
 import { errorHandler } from "@emilevi4-co/common";
@@ -21,7 +21,7 @@ app.use(
 );
 
 app.use(currentUserRouter);
-app.use(signinUserRouter);
+app.use(signinRouter);
 app.use(signoutUserRouter);
 app.use(signupUserRouter);
 
