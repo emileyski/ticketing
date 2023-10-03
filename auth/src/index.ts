@@ -18,7 +18,9 @@ const start = async () => {
   }
 
   app.listen(3000, () =>
-    console.log(`Auth service listen on port 3000... (v2)`)
+    console.log(
+      `Auth service listen on port 3000... (v3 - with docker pushing)`
+    )
   );
 };
 
