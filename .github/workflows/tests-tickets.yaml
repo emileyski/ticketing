@@ -3,8 +3,12 @@ name: tests-tickets
 on:
   push:
     branches: [master]
+    paths:
+      - "tickets/**"
   pull_request:
     branches: [master]
+    paths:
+      - "tickets/**"
 
 jobs:
   build:

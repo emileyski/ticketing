@@ -3,8 +3,12 @@ name: tests-orders
 on:
   push:
     branches: [master]
+    paths:
+      - "orders/**"
   pull_request:
     branches: [master]
+    paths:
+      - "orders/**"
 
 jobs:
   build:
