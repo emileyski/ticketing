@@ -14,7 +14,8 @@ spec:
     spec:
       containers:
         - name: auth
-          image: emilevi4/auth
+          image: de.icr.io/ticketing/auth
+          # image: emilevi4/auth
           env:
             - name: MONGO_URI
               value: "mongodb://auth-mongo-srv:27017/auth"

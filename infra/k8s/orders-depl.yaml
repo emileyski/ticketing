@@ -14,7 +14,8 @@ spec:
     spec:
       containers:
         - name: orders
-          image: emilevi4/orders
+          image: de.icr.io/ticketing/orders
+          # image: emilevi4/orders
           env:
             - name: MONGO_URI
               value: "mongodb://orders-mongo-srv:27017/orders"

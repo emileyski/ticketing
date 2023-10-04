@@ -14,7 +14,8 @@ spec:
     spec:
       containers:
         - name: client
-          image: emilevi4/client
+          image: de.icr.io/ticketing/client
+          # image: emilevi4/client
 ---
 apiVersion: v1
 kind: Service
