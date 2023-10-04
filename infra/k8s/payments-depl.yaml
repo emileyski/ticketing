@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: payments
-          image: emilevi4/payments
+          image: de.icr.io/ticketing/payments:latest # Обновленная строка
           env:
             - name: MONGO_URI
               value: "mongodb://payments-mongo-srv:27017/payments"
