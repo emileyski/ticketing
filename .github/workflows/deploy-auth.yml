@@ -17,7 +17,7 @@ jobs:
       - name: Make Docker image
         run: |
           curl -fsSL https://clis.cloud.ibm.com/install/linux | sh
-          run: ibmcloud login --apikey $IBM_CLOUD_API_KEY -r eu-de
+          ibmcloud login --apikey $IBM_CLOUD_API_KEY -r eu-de
           cd auth
           docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
           docker build -t emilevi4/auth .
