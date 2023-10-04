@@ -25,20 +25,10 @@ jobs:
       - name: Make Docker image
         run: |
           cd auth
+          docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
           docker build -t emilevi4/auth .
           docker tag emilevi4/auth de.icr.io/ticketing/auth
           docker push de.icr.io/ticketing/auth
-
-    #   - name: Login to IBM Cloud Container Registry
-    #     run: |
-    #       echo "${{ secrets.IBM_CLOUD_API_KEY }}" | ibmcloud login --apikey @-
-    #       ibmcloud cr region-set "${{ secrets.ICR_REGION }}"
-    #       ibmcloud cr login
-
-    #   - name: Build Docker image
-    #     run: |
-    #       docker build -t "registry.${{ secrets.ICR_REGION }}.bluemix.net/${{ secrets.ICR_NAMESPACE }}/your-image-name:latest" .
-
-    #   - name: Push Docker image to IBM Cloud Container Registry
-    #     run: |
-    #       docker push "registry.${{ secrets.ICR_REGION }}.bluemix.net/${{ secrets.ICR_NAMESPACE }}/your-image-name:latest"
+        env:
+          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
