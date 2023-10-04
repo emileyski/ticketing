@@ -27,6 +27,7 @@ jobs:
           cd auth
           docker build -t emilevi4/auth .
           docker tag emilevi4/auth de.icr.io/ticketing/auth
+          docker push de.icr.io/ticketing/auth
 
     #   - name: Login to IBM Cloud Container Registry
     #     run: |
