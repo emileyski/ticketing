@@ -50,7 +50,9 @@ const start = async () => {
     console.error(error);
   }
 
-  app.listen(3000, () => console.log(`Tickets service listen on port 3000...`));
+  app.listen(3000, () =>
+    console.log(`Tickets service listen on port 3000... (v1)`)
+  );
 };
 
 start();
