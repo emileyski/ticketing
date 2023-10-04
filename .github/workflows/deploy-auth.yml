@@ -19,8 +19,7 @@ jobs:
 
       - name: Login to IBM with API_KEY
         run: |
-          ibmcloud login --apikey $IBM_CLOUD_API_KEY
-          ibmcloud cr region-set ${{ secrets.IBM_CLOUD_REGION }}
+          ibmcloud login --apikey $IBM_CLOUD_API_KEY -r ${{ secrets.IBM_CLOUD_REGION }}
         env:
           IBM_CLOUD_API_KEY: ${{secrets.IBM_CLOUD_API_KEY}}
           IBM_CLOUD_REGION: ${{secrets.IBM_CLOUD_REGION}}
