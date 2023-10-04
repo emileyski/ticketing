@@ -4,7 +4,7 @@ on:
   push:
     branches: [master]
     paths:
-      - "auth/**"
+      - "infra/**"
 jobs:
   build:
     runs-on: ubuntu-latest
