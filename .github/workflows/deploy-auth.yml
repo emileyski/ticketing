@@ -17,6 +17,7 @@ jobs:
       - name: Install and config ibmcloud
         run: |
           curl -fsSL https://clis.cloud.ibm.com/install/linux | sh
+          ibmcloud plugin install -f container-registry
           ibmcloud login --apikey $IBM_CLOUD_API_KEY -r eu-de
           ibmcloud cr namespaces
           ibmcloud cr namespace-set ticketing
