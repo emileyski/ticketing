@@ -21,6 +21,7 @@ jobs:
           curl -fsSL https://clis.cloud.ibm.com/install/linux | sh
           ibmcloud config --check-version=false
           ibmcloud login --apikey $IBM_CLOUD_API_KEY -r $IBM_CLOUD_REGION
+          ibmcloud plugin install -f kubernetes-service
           ibmcloud ks cluster config --cluster learning-cluster  # Замените <your-cluster-name-or-id> на имя или ID вашего кластера
 
       - name: Apply Kubernetes manifests
