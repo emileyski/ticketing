@@ -5,6 +5,11 @@ on:
     branches: [master]
     # paths:
     #   - "auth/**"
+  workflow_dispatch:
+    inputs:
+      branch:
+        description: "Branch to deploy"
+        required: true
 
 jobs:
   build:
