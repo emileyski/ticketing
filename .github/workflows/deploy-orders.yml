@@ -3,8 +3,8 @@ name: orders-deploy
 on:
   push:
     branches: [master]
-    # paths:
-    #   - "orders/**"
+    paths:
+      - "orders/**"
 
 env:
   IBM_CLOUD_API_KEY: ${{secrets.IBM_CLOUD_API_KEY}}

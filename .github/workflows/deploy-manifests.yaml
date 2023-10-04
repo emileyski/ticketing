@@ -1,0 +1,30 @@
+name: deploy-manifests
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "infra/**"
+
+env:
+  IBM_CLOUD_API_KEY: ${{secrets.IBM_CLOUD_API_KEY}}
+  IBM_CLOUD_REGION: eu-de
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up IBM Cloud CLI
+        run: |
+          curl -fsSL https://clis.cloud.ibm.com/install/linux | sh
+          ibmcloud config --check-version=false
+          ibmcloud login --apikey $IBM_CLOUD_API_KEY -r $IBM_CLOUD_REGION
+          ibmcloud ks cluster config --cluster learning-cluster  # Замените <your-cluster-name-or-id> на имя или ID вашего кластера
+
+      - name: Apply Kubernetes manifests
+        run: |
+          kubectl apply -f infra/k8s
+          # kubectl apply -f infra/k8s-prod

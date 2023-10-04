@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: expiration-redis
-          image: redis
+          image: de.icr.io/ticketing/redis
 ---
 apiVersion: v1
 kind: Service

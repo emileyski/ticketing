@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: auth-mongo
-          image: mongo
+          image: de.icr.io/ticketing/mongo
 ---
 apiVersion: v1
 kind: Service

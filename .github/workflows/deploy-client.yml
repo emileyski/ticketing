@@ -3,8 +3,8 @@ name: client-deploy
 on:
   push:
     branches: [master]
-    # paths:
-    #   - "client/**"
+    paths:
+      - "client/**"
 
 env:
   IBM_CLOUD_API_KEY: ${{secrets.IBM_CLOUD_API_KEY}}
