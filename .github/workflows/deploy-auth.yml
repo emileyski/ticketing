@@ -14,10 +14,17 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Make Docker image
+      - name: Install and config ibmcloud
         run: |
           curl -fsSL https://clis.cloud.ibm.com/install/linux | sh
           ibmcloud login --apikey $IBM_CLOUD_API_KEY -r eu-de
+          ibmcloud cr namespaces
+          ibmcloud cr namespace-set ticketing
+        env:
+          IBM_CLOUD_API_KEY: ${{secrets.IBM_CLOUD_API_KEY}}
+
+      - name: Make Docker image
+        run: |
           cd auth
           docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
           docker build -t emilevi4/auth .
@@ -26,4 +33,3 @@ jobs:
         env:
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
-          IBM_CLOUD_API_KEY: ${{secrets.IBM_CLOUD_API_KEY}}
