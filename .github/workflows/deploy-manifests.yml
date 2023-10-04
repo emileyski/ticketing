@@ -1,0 +1,24 @@
+name: deploy-manifests
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "infra/**"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: IBM Cloud Login
+        run: ibmcloud login --apikey $IBM_CLOUD_API_KEY -r eu-de -g default
+        env:
+          IBM_CLOUD_API_KEY: ${{ secrets.IBM_CLOUD_API_KEY }}
+      - name: IBM Cloud CLI Setup
+        run: |
+          curl -fsSL https://clis.cloud.ibm.com/install/linux | sh
+          ibmcloud plugin install -f kubernetes-service
+      - run: ibmcloud ks cluster config --cluster your-iks-cluster-name-or-id
+      - run: kubectl apply -f infra/k8s
