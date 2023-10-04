@@ -12,6 +12,7 @@ env:
   IMAGE_NAME: auth
   GITHUB_SHA: ${{ github.sha }}
   REGISTRY_HOSTNAME: de.icr.io
+  ICR_NAMESPACE: ticketing
 
 jobs:
   build:
