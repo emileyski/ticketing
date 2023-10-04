@@ -18,7 +18,9 @@ jobs:
         run: curl -fsSL https://clis.cloud.ibm.com/install/linux | sh
 
       - name: Login to IBM with API_KEY
-        run: ibmcloud login --apikey $IBM_CLOUD_API_KEY -r $IBM_CLOUD_REGION
+        run: |
+          ibmcloud login --apikey $IBM_CLOUD_API_KEY
+          ibmcloud cr region-set "${{ secrets.ICR_REGION }}"
         env:
           IBM_CLOUD_API_KEY: ${{secrets.IBM_CLOUD_API_KEY}}
           IBM_CLOUD_REGION: ${{secrets.IBM_CLOUD_REGION}}
