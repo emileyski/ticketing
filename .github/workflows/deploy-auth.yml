@@ -5,11 +5,13 @@ on:
     branches: [master]
     # paths:
     #   - "auth/**"
-  # workflow_dispatch:
-  #   inputs:
-  #     branch:
-  #       description: "Branch to deploy"
-  #       required: true
+
+env:
+  IBM_CLOUD_API_KEY: ${{secrets.IBM_CLOUD_API_KEY}}
+  IBM_CLOUD_REGION: eu-de
+  IMAGE_NAME: auth
+  GITHUB_SHA: ${{ github.sha }}
+  REGISTRY_HOSTNAME: de.icr.io
 
 jobs:
   build:
@@ -19,24 +21,23 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Install and config ibmcloud
+        # Download and Install IBM Cloud CLI
+      - name: Install IBM Cloud CLI
         run: |
           curl -fsSL https://clis.cloud.ibm.com/install/linux | sh
+          ibmcloud --version
+          ibmcloud config --check-version=false
+          ibmcloud plugin install -f kubernetes-service
           ibmcloud plugin install -f container-registry
-          ibmcloud login --apikey $IBM_CLOUD_API_KEY -r eu-de
-          ibmcloud cr namespaces
-        env:
-          IBM_CLOUD_API_KEY: ${{secrets.IBM_CLOUD_API_KEY}}
-
-      - name: Make Docker image
+        # Authenticate with IBM Cloud CLI
+      - name: Authenticate with IBM Cloud CLI
         run: |
-          cd auth
-          docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
-          docker build -t emilevi4/auth .
-          ibmcloud login --apikey $IBM_CLOUD_API_KEY -r eu-de
-
-          # docker tag emilevi4/auth de.icr.io/ticketing/auth
-          # docker push de.icr.io/ticketing/auth
-        env:
-          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
-          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+          ibmcloud login --apikey "${IBM_CLOUD_API_KEY}" -r "${IBM_CLOUD_REGION}" -g default
+          ibmcloud cr region-set "${IBM_CLOUD_REGION}"
+          ibmcloud cr login
+          # Build the Docker image
+      - name: Build with Docker
+        run: |
+          docker build -t "$REGISTRY_HOSTNAME"/"$ICR_NAMESPACE"/"$IMAGE_NAME":"$GITHUB_SHA" \
+            --build-arg GITHUB_SHA="$GITHUB_SHA" \
+            --build-arg GITHUB_REF="$GITHUB_REF" .
