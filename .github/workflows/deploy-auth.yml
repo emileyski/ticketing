@@ -39,4 +39,5 @@ jobs:
           # Build the Docker image
       - name: Build with Docker
         run: |
-          docker build -t auth-img .
+          cd auth
+          docker build -t "$REGISTRY_HOSTNAME"/"$ICR_NAMESPACE"/"$IMAGE_NAME":"$GITHUB_SHA" --build-arg GITHUB_SHA="$GITHUB_SHA" --build-arg GITHUB_REF="$GITHUB_REF" .
