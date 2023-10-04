@@ -1,15 +1,15 @@
-name: auth-deploy
+name: payments-deploy
 
 on:
   push:
     branches: [master]
     paths:
-      - "auth/**"
+      - "payments/**"
 
 env:
   IBM_CLOUD_API_KEY: ${{secrets.IBM_CLOUD_API_KEY}}
   IBM_CLOUD_REGION: eu-de
-  IMAGE_NAME: auth
+  IMAGE_NAME: payments
   GITHUB_SHA: ${{ github.sha }}
   REGISTRY_HOSTNAME: de.icr.io
   ICR_NAMESPACE: ticketing
@@ -39,7 +39,7 @@ jobs:
           # Build the Docker image
       - name: Build with Docker
         run: |
-          cd auth
+          cd payments
           docker build -t "$REGISTRY_HOSTNAME"/"$ICR_NAMESPACE"/"$IMAGE_NAME":"$GITHUB_SHA" --build-arg GITHUB_SHA="$GITHUB_SHA" --build-arg GITHUB_REF="$GITHUB_REF" .
       # Push the image to IBM Container Registry
       - name: Push the image to ICR

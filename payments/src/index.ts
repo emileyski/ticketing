@@ -50,7 +50,7 @@ const start = async () => {
   }
 
   app.listen(3000, () =>
-    console.log(`Payments service listen on port 3000... (try to deploy v1)`)
+    console.log(`Payments service listen on port 3000... (try to deploy v2)`)
   );
 };
 
