@@ -5,11 +5,11 @@ on:
     branches: [master]
     # paths:
     #   - "auth/**"
-  workflow_dispatch:
-    inputs:
-      branch:
-        description: "Branch to deploy"
-        required: true
+  # workflow_dispatch:
+  #   inputs:
+  #     branch:
+  #       description: "Branch to deploy"
+  #       required: true
 
 jobs:
   build:
@@ -25,7 +25,6 @@ jobs:
           ibmcloud plugin install -f container-registry
           ibmcloud login --apikey $IBM_CLOUD_API_KEY -r eu-de
           ibmcloud cr namespaces
-          ibmcloud cr namespace-set ticketing
         env:
           IBM_CLOUD_API_KEY: ${{secrets.IBM_CLOUD_API_KEY}}
 
