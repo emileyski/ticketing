@@ -33,8 +33,10 @@ jobs:
           cd auth
           docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
           docker build -t emilevi4/auth .
-          docker tag emilevi4/auth de.icr.io/ticketing/auth
-          docker push de.icr.io/ticketing/auth
+          ibmcloud login --apikey $IBM_CLOUD_API_KEY -r eu-de
+
+          # docker tag emilevi4/auth de.icr.io/ticketing/auth
+          # docker push de.icr.io/ticketing/auth
         env:
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
